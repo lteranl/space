@@ -44,6 +44,19 @@ function createScene() {
     sphere.position = new BABYLON.Vector3(3, 0, 0);
     sphere.scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
 
+    //create a plane
+    const plane = BABYLON.MeshBuilder.CreatePlane("plane", {}, scene);
+    plane.position = new BABYLON.Vector3(-3, 0, 0);
+
+    //create a line
+    const points = [
+        new BABYLON.Vector3(2, 0, 0),
+        new BABYLON.Vector3(2, 1, 1),
+        new BABYLON.Vector3(2, 1, 0),
+    ];
+
+    const lines = BABYLON.MeshBuilder.CreateLines("lines", { points }, scene);
+
     return scene;
 }
 
