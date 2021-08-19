@@ -12,15 +12,28 @@ function createScene() {
     //create a camera
     const camera = new BABYLON.FreeCamera(
         "camera",
-        new BABYLON.Vector3(0, 0, 0),
+        new BABYLON.Vector3(0, 0, -5),
         scene
     );
+    camera.attachControl(canvas, true);
     //create a light
     const light = new BABYLON.HemisphericLight(
         "light",
         new BABYLON.Vector3(0, 1, 0),
         scene
     );
+    //create box
+    const box = BABYLON.MeshBuilder.CreateBox(
+        "box",
+        {
+            size: 1,
+        },
+        scene
+    );
+    box.rotation.x = 2;
+    box.rotation.y = 3;
+    //create a sphere
+
     return scene;
 }
 
