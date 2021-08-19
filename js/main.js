@@ -22,6 +22,7 @@ function createScene() {
         new BABYLON.Vector3(0, 1, 0),
         scene
     );
+
     //create box
     const box = BABYLON.MeshBuilder.CreateBox(
         "box",
@@ -32,6 +33,7 @@ function createScene() {
     );
     box.rotation.x = 2;
     box.rotation.y = 3;
+
     //create a sphere
     const sphere = BABYLON.MeshBuilder.CreateSphere(
         "sphere",
@@ -56,6 +58,20 @@ function createScene() {
     ];
 
     const lines = BABYLON.MeshBuilder.CreateLines("lines", { points }, scene);
+
+    //create a material
+    const material = new BABYLON.StandardMaterial("material", scene);
+    material.diffuseColor = new BABYLON.Color3(1, 0, 0);
+    material.emissiveColor = new BABYLON.Color3(0, 1, 0);
+
+    box.material = material;
+
+    const material2 = new BABYLON.StandardMaterial("material2", scene);
+    material2.diffuseTexture = new BABYLON.Texture(
+        "assets/images/dark_rock.png",
+        scene
+    );
+    sphere.material = material2;
 
     return scene;
 }
