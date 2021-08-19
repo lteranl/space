@@ -33,6 +33,16 @@ function createScene() {
     box.rotation.x = 2;
     box.rotation.y = 3;
     //create a sphere
+    const sphere = BABYLON.MeshBuilder.CreateSphere(
+        "sphere",
+        {
+            segments: 32,
+            diameter: 2,
+        },
+        scene
+    );
+    sphere.position = new BABYLON.Vector3(3, 0, 0);
+    sphere.scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
 
     return scene;
 }
