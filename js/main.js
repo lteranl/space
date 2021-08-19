@@ -29,6 +29,8 @@ function createLight(scene) {
         new BABYLON.Vector3(0, 1, 0),
         scene
     );
+    light.intensity = 0.5;
+    light.groundColor = new BABYLON.Color3(0, 0, 1);
 }
 
 function createSun(scene) {
@@ -42,9 +44,29 @@ function createSun(scene) {
     );
 }
 
+function createPlanet(scene) {
+    const planetMaterial = new BABYLON.StandardMaterial(
+        "planetMaterial",
+        scene
+    );
+    planetMaterial.diffuseTexture = new BABYLON.Texture(
+        "assets/images/sand.png",
+        scene
+    );
+    planetMaterial.specularColor = BABYLON.Color3.Black();
+    const planet = BABYLON.MeshBuilder.CreateSphere(
+        "planet",
+        { segments: 16, diameter: 1 },
+        scene
+    );
+    planet.position.x = 4;
+    planet.material = planetMaterial;
+}
+
 function createScene() {
     //create a scene
     const scene = new BABYLON.Scene(engine);
+    scene.clearColor = BABYLON.Color3.Black();
 
     //create a camera
     createCamera();
@@ -55,63 +77,8 @@ function createScene() {
     //create a sun
     createSun();
 
-    // const light = new BABYLON.DirectionalLight(
-    //     "light",
-    //     new BABYLON.Vector3(5, -1, 0),
-    //     scene
-    // );
-
-    // //create box
-    // const box = BABYLON.MeshBuilder.CreateBox(
-    //     "box",
-    //     {
-    //         size: 1,
-    //     },
-    //     scene
-    // );
-    // box.rotation.x = 2;
-    // box.rotation.y = 3;
-
-    // camera.lockedTarget = box;
-
-    // //create a sphere
-    // const sphere = BABYLON.MeshBuilder.CreateSphere(
-    //     "sphere",
-    //     {
-    //         segments: 32,
-    //         diameter: 2,
-    //     },
-    //     scene
-    // );
-    // sphere.position = new BABYLON.Vector3(3, 0, 0);
-    // sphere.scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-
-    // //create a plane
-    // const plane = BABYLON.MeshBuilder.CreatePlane("plane", {}, scene);
-    // plane.position = new BABYLON.Vector3(-3, 0, 0);
-
-    // //create a line
-    // const points = [
-    //     new BABYLON.Vector3(2, 0, 0),
-    //     new BABYLON.Vector3(2, 1, 1),
-    //     new BABYLON.Vector3(2, 1, 0),
-    // ];
-
-    // const lines = BABYLON.MeshBuilder.CreateLines("lines", { points }, scene);
-
-    // //create a material
-    // const material = new BABYLON.StandardMaterial("material", scene);
-    // material.diffuseColor = new BABYLON.Color3(1, 0, 0);
-    // material.emissiveColor = new BABYLON.Color3(0, 1, 0);
-
-    // box.material = material;
-
-    // const material2 = new BABYLON.StandardMaterial("material2", scene);
-    // material2.diffuseTexture = new BABYLON.Texture(
-    //     "assets/images/dark_rock.png",
-    //     scene
-    // );
-    // sphere.material = material2;
+    //create first planet
+    createPlanet();
 
     return scene;
 }
