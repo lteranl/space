@@ -10,16 +10,35 @@ function createScene() {
     //create a scene
     const scene = new BABYLON.Scene(engine);
     //create a camera
-    const camera = new BABYLON.FreeCamera(
+    // const camera = new BABYLON.FreeCamera(
+    //     "camera",
+    //     new BABYLON.Vector3(0, 0, -5),
+    //     scene
+    // );
+
+    //universal cam for both phone and desktop
+    // const camera = new BABYLON.UniversalCamera(
+    //     "camera",
+    //     new BABYLON.Vector3(0, 0, -5),
+    //     scene
+    // );
+    const camera = new BABYLON.FollowCamera(
         "camera",
-        new BABYLON.Vector3(0, 0, -5),
+        new BABYLON.Vector3(0, -25, -25),
         scene
     );
+    camera.radius = 5;
+
     camera.attachControl(canvas, true);
     //create a light
-    const light = new BABYLON.HemisphericLight(
+    // const light = new BABYLON.HemisphericLight(
+    //     "light",
+    //     new BABYLON.Vector3(0, 1, 0),
+    //     scene
+    // );
+    const light = new BABYLON.DirectionalLight(
         "light",
-        new BABYLON.Vector3(0, 1, 0),
+        new BABYLON.Vector3(5, -1, 0),
         scene
     );
 
@@ -33,6 +52,8 @@ function createScene() {
     );
     box.rotation.x = 2;
     box.rotation.y = 3;
+
+    camera.lockedTarget = box;
 
     //create a sphere
     const sphere = BABYLON.MeshBuilder.CreateSphere(
