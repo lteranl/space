@@ -13,7 +13,7 @@ function createCamera(scene) {
         scene
     );
     camera.setPosition(new BABYLON.Vector3(0, 0, 20));
-    camera.radius = 45;
+    camera.radius = 70;
     //let user move camera
     camera.attachControl(canvas);
 
