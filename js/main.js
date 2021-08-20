@@ -18,8 +18,8 @@ function createCamera(scene) {
     camera.attachControl(canvas);
 
     //limit camera limit
-    camera.lowerRadiusLimit = 6;
-    camera.upperRadiusLimit = 40;
+    camera.lowerRadiusLimit = 8;
+    camera.upperRadiusLimit = 60;
 }
 
 function createLight(scene) {
