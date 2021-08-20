@@ -20,7 +20,7 @@ function createCamera(scene) {
 
     //limit camera limit
     camera.lowerRadiusLimit = 6;
-    camera.upperRadiusLimit = 20;
+    camera.upperRadiusLimit = 40;
 }
 
 function createLight(scene) {
@@ -64,18 +64,40 @@ function createPlanet(scene) {
         "planetMaterial",
         scene
     );
+    //planet 'skin'
     planetMaterial.diffuseTexture = new BABYLON.Texture(
         "assets/images/sand.png",
         scene
     );
+    //removing the reflection off planets
     planetMaterial.specularColor = BABYLON.Color3.Black();
-    const planet = BABYLON.MeshBuilder.CreateSphere(
-        "planet",
-        { segments: 16, diameter: 1 },
-        scene
-    );
-    planet.position.x = 4;
-    planet.material = planetMaterial;
+
+    const speeds = [0.035, 0.03, 0.025, 0.02, 0.015, 0.013, 0.01, 0.009];
+    for (let i = 0; i < 8; i++) {
+        const planet = BABYLON.MeshBuilder.CreateSphere(
+            `Planet${i}`,
+            { segments: 16, diameter: 1 },
+            scene
+        );
+        //moving planet on the x line
+        planet.position.x = 2 * i + 4;
+        //assinging planet.material to planeMaterial variable
+        planet.material = planetMaterial;
+
+        planet.orbit = {
+            radius: planet.position.x,
+            speed: speeds[i],
+            angle: 0,
+        };
+
+        scene.registerBeforeRender(() => {
+            planet.position.x =
+                planet.orbit.radius * Math.sin(planet.orbit.angle);
+            planet.position.z =
+                planet.orbit.radius * Math.cos(planet.orbit.angle);
+            planet.orbit.angle += planet.orbit.speed;
+        });
+    }
 }
 
 function createSkybox(scene) {
@@ -114,13 +136,13 @@ function createScene() {
     createCamera();
 
     //create a light
-    createLight();
+    createLight(scene);
 
     //create a sun
-    createSun();
+    createSun(scene);
 
     //create first planet
-    createPlanet();
+    createPlanet(scene);
 
     //create skybox
     createSkybox(scene);
