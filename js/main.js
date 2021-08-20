@@ -9,12 +9,11 @@ const engine = new BABYLON.Engine(canvas, true);
 function createCamera(scene) {
     const camera = new BABYLON.ArcRotateCamera(
         "camera",
-        0,
-        0,
-        15,
-        BABYLON.Vector3.Zero(),
+        BABYLON.Vector3(0, 0, 0),
         scene
     );
+    camera.setPosition(new BABYLON.Vector3(0, 0, 20));
+    camera.radius = 30;
     //let user move camera
     camera.attachControl(canvas);
 
@@ -76,7 +75,7 @@ function createPlanet(scene) {
     for (let i = 0; i < 8; i++) {
         const planet = BABYLON.MeshBuilder.CreateSphere(
             `Planet${i}`,
-            { segments: 16, diameter: 1 },
+            { segments: 16, diameter: `${i / 3}` },
             scene
         );
         //moving planet on the x line
@@ -127,21 +126,21 @@ function createSkybox(scene) {
     skybox.material = skyboxMaterial;
 }
 
-function createShip(scene) {
-    BABYLON.SceneLoader.ImportMesh(
-        "",
-        "assets/models/",
-        "spaceCraft1.obj",
-        scene,
-        (meshes) => {
-            console.log(meshes);
-            meshes.forEach((mesh) => {
-                mesh.position = new BABYLON.Vector3(0, -5, 10);
-                mesh.scaling = new BABYLON.Vector3(0.2, 0.2, 0.2);
-            });
-        }
-    );
-}
+// function createShip(scene) {
+//     BABYLON.SceneLoader.ImportMesh(
+//         "",
+//         "assets/models/",
+//         "spaceCraft1.obj",
+//         scene,
+//         (meshes) => {
+//             console.log(meshes);
+//             meshes.forEach((mesh) => {
+//                 mesh.position = new BABYLON.Vector3(0, -5, 10);
+//                 mesh.scaling = new BABYLON.Vector3(0.2, 0.2, 0.2);
+//             });
+//         }
+//     );
+// }
 
 function createScene() {
     //create a scene
@@ -164,7 +163,7 @@ function createScene() {
     createSkybox(scene);
 
     //create ship
-    createShip(scene);
+    // createShip(scene);
 
     return scene;
 }
