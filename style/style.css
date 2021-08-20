@@ -9,10 +9,8 @@ body {
     position: relative;
 }
 canvas {
-    width: 99vw;
-    height: 95vh;
-    border-radius: 3rem;
-    margin-top: 2rem;
+    width: 100vw;
+    height: 100vh;
     outline: none;
 }
 .description {
